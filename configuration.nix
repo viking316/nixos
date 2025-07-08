@@ -203,6 +203,7 @@
     pkgs.syncthingtray
     pkgs.thunderbird
     pkgs.localsend
+    nh
   ];
 
   #enabling flatpaks support
