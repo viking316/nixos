@@ -13,6 +13,13 @@
  #flakes enabler
  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+ #GC collector config
+ nix.gc = {
+   automatic = true;
+   dates = "weekly";
+   options = "--delete-older-than 21d";
+  };
+
  #for nvidia gpu
    # Enable OpenGL
   hardware.graphics = {
