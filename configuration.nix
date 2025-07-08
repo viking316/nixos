@@ -182,7 +182,7 @@
     telegram-desktop
     whatsie
     ghostty
-    rofi-unwrapped
+    rofi-wayland
     lshw
     tmux	
     floorp-unwrapped
