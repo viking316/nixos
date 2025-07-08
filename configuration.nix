@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
     ]; 
  
+ #flakes enabler
+ nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
  #for nvidia gpu
    # Enable OpenGL
   hardware.graphics = {
