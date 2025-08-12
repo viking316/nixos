@@ -198,11 +198,11 @@
   programs.firefox.enable = true;
   programs.steam.enable = true;
 
-  programs.zen-brower = {
-	enalbe = true;
+  #programs.zen-brower = {
+	#enalbe = true;
 
 
-  };
+  #};
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
