@@ -234,6 +234,8 @@
     pkgs.thunderbird
     pkgs.localsend
     nh
+    inputs.zen-browser.packages.${pkgs.system}.default
+
   ];
 
   #enabling flatpaks support
