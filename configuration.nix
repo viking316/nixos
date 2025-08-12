@@ -108,13 +108,16 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+#  networking.networkmanager.unmanaged = [
+	#"interface:wlo1"
+  #];
 
   #creating a hotspot
   services.create_ap = {
 	enable = true;
 	settings = {
 		INTERNET_IFACE = "enp0s20f0u1c2";
-		WIFI_IFACE = "wlp1";
+		WIFI_IFACE = "wlo1";
 		SSID = "BigScroll";
 		PASSPHRASE = "scroll316";
 	};
