@@ -109,6 +109,17 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  #creating a hotspot
+  services.create_ap = {
+	enable = true;
+	settings = {
+		INTERNET_IFACE = "enp0s20f0u1c2";
+		WIFI_IFACE = "wlp1";
+		SSID = "BigScroll";
+		PASSPHRASE = "scroll316";
+	};
+  };
+
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
 
@@ -179,13 +190,16 @@
     ];
   };
 
-  # Install firefox.
+  # Install packages.
   programs.firefox.enable = true;
+  programs.steam.enable = true;
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    linux-wifi-hotspot
+    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     vscode
     discord
