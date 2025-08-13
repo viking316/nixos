@@ -230,7 +230,6 @@
     zed-editor
     resonance
     pkgs.syncthing
-    pkgs.syncthingtray
     pkgs.thunderbird
     pkgs.localsend
     nh
