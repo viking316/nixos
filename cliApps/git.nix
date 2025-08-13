@@ -9,7 +9,7 @@
 		userEmail = "ironavenger10@gmail.com";
 		extraConfig = {
 			init.defaultBranch = "main";
-		}
+		};
 
 	};
-};
+}

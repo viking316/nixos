@@ -201,13 +201,17 @@
   users.users.big_scroll = {
     isNormalUser = true;
     description = "Chandrashekar M";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
     ];
   };
 
+
+
+  #docker shit
+  virtualisation.docker.enable = true;
 
   #shells
   environment.shells = with pkgs; [zsh fish bash];
