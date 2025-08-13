@@ -2,6 +2,7 @@
   description = "My first flake";
 
   inputs = {
+    
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     
     zen-browser = {
@@ -9,19 +10,48 @@
 	inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager = {
+	url = "github:nix-community/home-manager";
+	inputs.nixpkgs.follows = "nixpkgs";
+
+    };
   };
 
-  outputs = { nixpkgs, ... } @ inputs: {
+
+  outputs = { nixpkgs, ... } @ inputs:
+
+#-----------------------------------
+  let
+
+	system = "x86_64-linux";
+        homepkgs = nixpkgs.legacyPackages.${system};
+
+  in
+#-----------------------------------
+  {
+	#this is for the system so we pass the host name which is bigscroll in this case
 	nixosConfigurations.bigscroll = nixpkgs.lib.nixosSystem {
 	
 		specialArgs = { inherit inputs; };
-
+		
 		modules = [
 			./configuration.nix
 		];
 	
     	};
-    
+
+
+    	#here for home manager we give the user name and not the host name 
+	#as the packages will be installed only for that user
+	homeConfigurations.big_scroll = inputs.home-manager.lib.homeManagerConfiguration {
+		#extraSpecialArgs is literally specialArgs but just the HM version.
+		extraSpecialArgs = { inherit inputs; };
+		pkgs = homepkgs;
+		modules = [
+			./home.nix
+		];
+	
+    	};
   };
 
 }
