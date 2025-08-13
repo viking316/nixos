@@ -40,18 +40,18 @@
 	
     	};
 
-
+	#i am commenting out the belopw lines cuz i switched to integrated method where home-manager is triggered by nixos-rebuild switch and the below code is no longer req
     	#here for home manager we give the user name and not the host name 
 	#as the packages will be installed only for that user
-	homeConfigurations.big_scroll = inputs.home-manager.lib.homeManagerConfiguration {
-		#extraSpecialArgs is literally specialArgs but just the HM version.
-		extraSpecialArgs = { inherit inputs; };
-		pkgs = homepkgs;
-		modules = [
-			./home.nix
-		];
-	
-    	};
+#	homeConfigurations.big_scroll = inputs.home-manager.lib.homeManagerConfiguration {
+#		#extraSpecialArgs is literally specialArgs but just the HM version.
+#		extraSpecialArgs = { inherit inputs; };
+#		pkgs = homepkgs;
+#		modules = [
+#			./home.nix
+#		];
+#	
+#   	};
   };
 
 }

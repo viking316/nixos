@@ -21,7 +21,7 @@
 	users = {
 		big_scroll = {
 			imports =  [./home.nix];
-		}
+		};
 	
 	 };
 
