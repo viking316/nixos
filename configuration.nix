@@ -196,24 +196,26 @@
 
   # Install packages.
   programs.firefox.enable = true;
+  
   programs.steam.enable = true;
-
-  #programs.zen-brower = {
-	#enalbe = true;
-
-
-  #};
+  
+  programs.java = {
+	enable = true;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    btop
+    bat
+    zapzap
+    obsidian
     linux-wifi-hotspot
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     vscode
     discord
     telegram-desktop
-    whatsie
     ghostty
     rofi-wayland
     lshw
@@ -221,8 +223,6 @@
     floorp-unwrapped
     git
     python310
-    pkgs.zulu17
-    pkgs.zulu23
     obs-studio
     vlc
     stremio
