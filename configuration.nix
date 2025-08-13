@@ -8,10 +8,25 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      inputs.home-manager.nixosModules.home-manager
     ]; 
  
  #flakes enabler
  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+ #home-manager importer
+ home-manager = {
+
+   	extraSpecialArgs = {inherit inputs;};
+	users = {
+		big_scroll = {
+			imports =  [./home.nix];
+		}
+	
+	 };
+
+ };
+
 
  #GC collector config
  nix.gc = {
