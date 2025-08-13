@@ -194,6 +194,12 @@
   };
 
 
+  #shells
+  environment.shells = with pkgs; [zsh fish bash];
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
+
+
   # Install packages.
   programs.firefox.enable = true;
   
