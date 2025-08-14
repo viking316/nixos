@@ -3,6 +3,7 @@
 {
   imports = [
 	./cliApps/git.nix
+	./cliApps/zsh.nix
 	
   ];
   # Home Manager needs a bit of information about you and the paths it should
@@ -56,7 +57,11 @@
     # '';
   #};
 
-  home.file."/boot/EFI/refind/refind.conf".source =  ./hardcoded/refind.conf;
+  
+
+  #these are the confs for refind(bootloader)
+  home.file."/boot/EFI/refind/refind.conf".source =  hardcoded/refind.conf;
+  home.file."/boot/EFI/refind/icons/pill.png".source = hardcoded/pill.png;
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
