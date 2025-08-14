@@ -24,7 +24,7 @@
 		};
 	
 	 };
-
+	backupFileExtension = "bak";
  };
 
 
