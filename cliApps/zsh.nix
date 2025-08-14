@@ -32,6 +32,15 @@
 			enable = true;
 			highlighters = ["brackets" "root" "cursor"];
 		};
+		initExtra = ''
+      			# Automatically start tmux if not already inside a tmux session
+		        if [[ -z "$TMUX" && "$-" == *i* ]]; then
+     			        # The `exec` command replaces the current shell process with tmux,
+		        	# which is cleaner than just running it.
+			        # The `-u` flag enables UTF-8 support.
+        			exec tmux -u
+		        fi
+			    '';
 
 		initContent =
 
