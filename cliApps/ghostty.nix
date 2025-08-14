@@ -16,6 +16,8 @@
 			background-opacity = 0.9;
 			window-padding-x = 2;
 			window-padding-y = 2;
+			theme = "catppuccin-mocha";
+			background-blur = true;
 		};
 
 
