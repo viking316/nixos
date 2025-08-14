@@ -241,7 +241,6 @@
     vscode
     discord
     telegram-desktop
-    ghostty
     rofi-wayland
     lshw
     tmux	
@@ -259,6 +258,13 @@
     pkgs.localsend
     nh
     inputs.zen-browser.packages.${pkgs.system}.default
+
+  ];
+
+  fonts.packages = with pkgs; [
+	#(pkgs.nerdfonts.override{fonts = ["JetBrainsMono"];})
+	nerd-fonts.jetbrains-mono
+
 
   ];
 

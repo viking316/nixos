@@ -4,7 +4,7 @@
   imports = [
 	./cliApps/git.nix
 	./cliApps/zsh.nix
-	
+	./cliApps/ghostty.nix	
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
