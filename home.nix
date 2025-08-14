@@ -7,10 +7,14 @@
 	./cliApps/ghostty.nix	
   	./cliApps/fzf.nix
   ];
-  # Home Manager needs a bit of information about you and the paths it should
+
+# Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "big_scroll";
   home.homeDirectory = "/home/big_scroll";
+  
+
+
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -24,8 +28,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    fd
-
+    #ONLY GLOBAL PKGS ARE DEFINED HERE
+    #I HAVE PUT ALL THE PKGS REQ FOR THE MODULES IN THEIR OWN FILES INSTEAD OF HERE GLOBALLY.
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
