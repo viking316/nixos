@@ -231,6 +231,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+
     btop
     bat
     zapzap
@@ -289,6 +290,9 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  #cusotm dns server
+    networking.nameservers = ["94.140.14.14" "94.140.15.15"];
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

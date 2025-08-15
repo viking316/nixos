@@ -6,6 +6,7 @@
 	./cliApps/zsh.nix
 	./cliApps/ghostty.nix	
   	./cliApps/fzf.nix
+	./cliApps/helix.nix
   ];
 
 # Home Manager needs a bit of information about you and the paths it should
