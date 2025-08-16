@@ -13,7 +13,7 @@
 			
 			cursor-style = "block";
 			mouse-hide-while-typing = true;
-			background-opacity = 0.9;
+			background-opacity = 0.8;
 			window-padding-x = 2;
 			window-padding-y = 2;
 			theme = "catppuccin-mocha";
