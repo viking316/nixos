@@ -13,6 +13,8 @@
     home-manager = {
     	url = "github:nix-community/home-manager";
     	inputs.nixpkgs.follows = "nixpkgs";
+    	url = "github:nix-community/home-manager";
+    	inputs.nixpkgs.follows = "nixpkgs";
 
     };
 
@@ -41,6 +43,7 @@
 		specialArgs = { inherit inputs; };
 		
 		modules = [
+      #./home.nix		  
 			./configuration.nix
 		];
 	

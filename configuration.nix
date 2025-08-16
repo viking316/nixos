@@ -175,7 +175,12 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    theme= "catppuccin-mocha";
+    #package = pkgs.kdePackages.sddm;
+    
+  };
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -245,6 +250,14 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    (catppuccin-sddm.override {
+      flavor = "mocha";
+      font  = "Noto Sans";
+      fontSize = "9";
+      background = "${./hardcoded/second_dragon_blue.png}";
+      loginBackground = true;
+    })
+
     iwd
     btop
     bat
