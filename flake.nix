@@ -20,6 +20,12 @@
     	inputs.nixpkgs.follows = "nixpkgs";
 
     };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
 
@@ -40,6 +46,7 @@
 		specialArgs = { inherit inputs; };
 		
 		modules = [
+      #./home.nix		  
 			./configuration.nix
 		];
 	

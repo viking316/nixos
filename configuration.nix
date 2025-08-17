@@ -11,6 +11,9 @@
       inputs.home-manager.nixosModules.home-manager
     ]; 
  
+  nix.settings = {
+    download-buffer-size = 1024288000; # 500Mib
+  };
  #flakes enabler
  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -31,8 +34,8 @@
  #GC collector config
  nix.gc = {
    automatic = true;
-   dates = "weekly";
-   options = "--delete-older-than 14d";
+   dates = "daily";
+   options = "--delete-older-than 3d";
   };
 
  #for nvidia gpu
@@ -110,33 +113,47 @@
        	 settings.General.Experimental = true;
          };
    };
+
+
+
+   
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "big_scroll"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+
+  networking.hostName = "big_scroll"; # Define your hostname.
+  # networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
+
+  #installs new backend for wifi which is iwd
+  networking.wireless.iwd.enable = true;
+  
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
-#  networking.networkmanager.unmanaged = [
-	#"interface:wlo1"
-  #];
-
-  #creating a hotspot
-  services.create_ap = {
-	enable = true;
-	settings = {
-		INTERNET_IFACE = "enp0s20f0u1c2";
-		WIFI_IFACE = "wlo1";
-		SSID = "BigScroll";
-		PASSPHRASE = "scroll316";
-	};
+  networking.networkmanager={
+    enable = true;
+    #changes network manager backend to iwd from wpa_supplicant which is shit
+    wifi.backend = "iwd";
+    #prevent wifi from turning off
+    wifi.powersave = false;
+    
   };
+
+
+ #creating a hotspot
+   services.create_ap = {
+	 enable = true;
+	 settings = {
+	  INTERNET_IFACE = "enp0s20f0u1c2";
+	 	WIFI_IFACE = "wlan0";
+	 	SSID = "BigScroll";
+	 	PASSPHRASE = "scroll316";
+	 };
+   };
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -166,7 +183,12 @@
   # services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    theme= "catppuccin-mocha";
+    #package = pkgs.kdePackages.sddm;
+    
+  };
   services.desktopManager.plasma6.enable = true;
   programs.hyprland.enable = true;
 
@@ -237,7 +259,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    kitty
+
     btop
     bat
     zapzap

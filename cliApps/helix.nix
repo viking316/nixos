@@ -19,6 +19,40 @@ in
 			
 			};
 		};
+
+		settings.keys = {
+  		  normal = {
+      		# Navigation
+		      i = "move_line_up";
+		      k = "move_line_down";
+    		  l = "move_char_right";
+		      j = "move_char_left";
+
+    		  # System Clipboard
+		      y = ":clipboard-yank";
+		      p = ":clipboard-paste-replace";
+
+    		  # Your other bindings
+		      ";" = "insert_mode";
+    		  C-g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w95%% -h95%% -E lazygit";
+      
+		      # Blame menu
+    		  C-b = {
+		        b = ":sh gblame %{buffer_name} %{cursor_line}";
+    		    u = ":sh gblame --url-only %{buffer_name} %{cursor_line} | xargs -I{} xdg-open {}";
+		      };
+   		 };
+   		select = {
+  		    # Navigation in select mode
+      		i = "extend_visual_line_up";
+		      k = "extend_visual_line_down";
+    		  l = "extend_char_right";
+		      j = "extend_char_left";
+		      y = ":clipboard-yank";
+		      p = ":clipboard-paste-replace";
+    	};
+  	};
+		
 		settings.theme = "catppuccin_mocha_transparent";
 		settings.editor = {
 			indent-guides = {

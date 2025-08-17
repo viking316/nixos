@@ -1,13 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs,inputs, ... }:
 
 {
   imports = [
 	./cliApps/git.nix
 	./cliApps/zsh.nix
 	./cliApps/ghostty.nix	
-  ./cliApps/fzf.nix
+  	./cliApps/fzf.nix
 	./cliApps/helix.nix
-	./guiApps/hyprland.nix
   ];
 
 # Home Manager needs a bit of information about you and the paths it should
@@ -15,7 +14,9 @@
   home.username = "big_scroll";
   home.homeDirectory = "/home/big_scroll";
   
-
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
 
   # This value determines the Home Manager release that your configuration is
@@ -66,8 +67,12 @@
     # '';
   #};
 
+  # custom gitblame command for helix editor T_T
+  home.file.".local/bin/gblame" = {
+    source = ./hardcoded/gblame;
+    executable = true;
+  };
   
-
   #these are the confs for refind(bootloader)
   home.file."/boot/EFI/refind/refind.conf".source =  hardcoded/refind.conf;
   home.file."/boot/EFI/refind/icons/pill.png".source = hardcoded/pill.png;
