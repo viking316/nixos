@@ -5,8 +5,10 @@
 	./cliApps/git.nix
 	./cliApps/zsh.nix
 	./cliApps/ghostty.nix	
-  	./cliApps/fzf.nix
+ 	./cliApps/fzf.nix
 	./cliApps/helix.nix
+	./guiApps/plasma-manager.nix
+	inputs.plasma-manager.homeManagerModules.plasma-manager
   ];
 
 # Home Manager needs a bit of information about you and the paths it should

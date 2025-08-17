@@ -259,7 +259,22 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-
+    lazygit
+    
+    (catppuccin-sddm.override {
+      flavor = "mocha";
+      font  = "Noto Sans";
+      fontSize = "9";
+      background = "${./hardcoded/second_dragon_blue.png}";
+      loginBackground = true;
+    })
+    
+    appimage-run
+    #wpsoffice
+    onlyoffice-desktopeditors
+    libreoffice
+    iwd    
+    kitty
     btop
     bat
     zapzap
