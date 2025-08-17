@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# This function prints errors to stderr and exits
+fail() {
+  echo "Error: $1" >&2
+  exit 1
+}
+
+URL_ONLY=false
+if [ "$1" == "--url-only" ]; then
+  URL_ONLY=true
+  shift
+fi
+
+FILE=$1 # This is the full path from Helix
+LINE=$2
+
+[ -f "$FILE" ] || fail "File '$FILE' not found."
+
+DIR=$(dirname "$FILE")
+cd "$DIR" || fail "Could not change to directory '$DIR'."
+FILENAME=$(basename "$FILE")
+
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || fail "Not a git repository in '$DIR'."
+
+BLAME_INFO=$(git blame -L "$LINE,$LINE" --porcelain "$FILENAME" 2>/dev/null)
+COMMIT_HASH=$(echo "$BLAME_INFO" | grep -o '^[0-9a-f]\{40\}' | head -n 1)
+
+if [ -z "$COMMIT_HASH" ]; then
+  fail "No blame info found for $FILENAME:$LINE"
+fi
+
+AUTHOR=$(git show -s --format='%an' "$COMMIT_HASH")
+DATE=$(git show -s --format='%ar' "$COMMIT_HASH")
+MESSAGE=$(git show -s --format='%s' "$COMMIT_HASH")
+
+# --- THIS IS THE DEFINITIVE FIX FOR YOUR URL ---
+# Get the raw remote URL
+RAW_URL=$(git config --get remote.origin.url)
+
+# Correctly parse both SSH (including your custom alias) and HTTPS URLs
+REPO_PATH=$(echo "$RAW_URL" | sed -E 's/^git@.*://; s/^https.*github.com\///; s/\.git$//')
+
+# Construct the final, clean URL
+REMOTE_URL="https://github.com/$REPO_PATH"
+# --- END OF FIX ---
+
+PR_NUMBER=$(echo "$MESSAGE" | grep -oP '#\K[0-9]+' | head -n 1)
+
+if [ "$URL_ONLY" = true ]; then
+  if [ ! -z "$PR_NUMBER" ]; then
+    echo "$REMOTE_URL/pull/$PR_NUMBER"
+  else
+    echo "$REMOTE_URL/commit/$COMMIT_HASH"
+  fi
+else
+  echo "Author: $AUTHOR"
+  echo "Date:   $DATE"
+  echo "Commit: $MESSAGE"
+fi

@@ -16,7 +16,9 @@
   home.username = "big_scroll";
   home.homeDirectory = "/home/big_scroll";
   
-
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
 
   # This value determines the Home Manager release that your configuration is
@@ -67,8 +69,12 @@
     # '';
   #};
 
+  # custom gitblame command for helix editor T_T
+  home.file.".local/bin/gblame" = {
+    source = ./cliApps/gblame;
+    executable = true;
+  };
   
-
   #these are the confs for refind(bootloader)
   home.file."/boot/EFI/refind/refind.conf".source =  hardcoded/refind.conf;
   home.file."/boot/EFI/refind/icons/pill.png".source = hardcoded/pill.png;
