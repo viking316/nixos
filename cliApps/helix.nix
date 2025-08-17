@@ -48,6 +48,8 @@ in
 		      k = "extend_visual_line_down";
     		  l = "extend_char_right";
 		      j = "extend_char_left";
+		      y = ":clipboard-yank";
+		      p = ":clipboard-paste-replace";
     	};
   	};
 		

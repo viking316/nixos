@@ -34,23 +34,32 @@
 			enable = true;
 			highlighters = ["brackets" "root" "cursor"];
 		};
-		initExtra = ''
-      			# Automatically start tmux if not already inside a tmux session
-		        if [[ -z "$TMUX" && "$-" == *i* ]]; then
-     			        # The `exec` command replaces the current shell process with tmux,
-		        	# which is cleaner than just running it.
-			        # The `-u` flag enables UTF-8 support.
-        			exec tmux -u
-		        fi
+		# initExtra = ''
+  #     			# Automatically start tmux if not already inside a tmux session
+		#         if [[ -z "$TMUX" && "$-" == *i* ]]; then
+  #    			        # The `exec` command replaces the current shell process with tmux,
+		#         	# which is cleaner than just running it.
+		# 	        # The `-u` flag enables UTF-8 support.
+  #       			exec tmux -u
+		#         fi
 
-		        export VIVID_THEME="catppuccin-mocha"
-		        export LS_COLORS="$(vivid generate "$VIVID_THEME")"
-			    '';
+		#         export VIVID_THEME="catppuccin-mocha"
+		#         export LS_COLORS="$(vivid generate "$VIVID_THEME")"
+		# 	    '';
 
-		initContent =
+		initContent =''
+      	# Automatically start tmux if not already inside a tmux session
+		    if [[ -z "$TMUX" && "$-" == *i* ]]; then
+     		# The `exec` command replaces the current shell process with tmux,
+		    # which is cleaner than just running it.
+			  # The `-u` flag enables UTF-8 support.
+        exec tmux -u
+		    fi
 
-		
-			''
+		    export VIVID_THEME="catppuccin-mocha"
+		    export LS_COLORS="$(vivid generate "$VIVID_THEME")"
+
+
 				# set up prompt(uncomment both lines if you wanna swithc)
 				
 				#PROMPT="
