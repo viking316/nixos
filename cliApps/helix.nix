@@ -28,7 +28,7 @@ in
 			k = "move_line_down";
 			l = "move_char_right";
 			j = "move_char_left";
-			C-g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w80%% -h80%% -E lazygit";
+			C-g = ":sh tmux popup -d \"#{pane_current_path}\" -xC -yC -w95%% -h95%% -E lazygit";
 		};
 		
 		settings.theme = "catppuccin_mocha_transparent";
