@@ -11,6 +11,9 @@
       inputs.home-manager.nixosModules.home-manager
     ]; 
  
+  nix.settings = {
+    download-buffer-size = 1024288000; # 500Mib
+  };
  #flakes enabler
  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -31,8 +34,8 @@
  #GC collector config
  nix.gc = {
    automatic = true;
-   dates = "weekly";
-   options = "--delete-older-than 14d";
+   dates = "daily";
+   options = "--delete-older-than 3d";
   };
 
  #for nvidia gpu
@@ -257,7 +260,10 @@
       background = "${./hardcoded/second_dragon_blue.png}";
       loginBackground = true;
     })
-
+    appimage-run
+    #wpsoffice
+    onlyoffice-desktopeditors
+    libreoffice
     iwd
     btop
     bat
