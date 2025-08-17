@@ -1,6 +1,8 @@
 {config, pkgs,lib, ...}:
 
 {
+	home.packages = with pkgs; [vivid];
+	
 	programs.zsh = {
 
 		enable = true;
@@ -40,6 +42,9 @@
 			        # The `-u` flag enables UTF-8 support.
         			exec tmux -u
 		        fi
+
+		        export VIVID_THEME="catppuccin-mocha"
+		        export LS_COLORS="$(vivid generate "$VIVID_THEME")"
 			    '';
 
 		initContent =
