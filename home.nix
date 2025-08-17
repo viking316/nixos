@@ -71,7 +71,7 @@
 
   # custom gitblame command for helix editor T_T
   home.file.".local/bin/gblame" = {
-    source = ./cliApps/gblame;
+    source = ./hardcoded/gblame;
     executable = true;
   };
   
