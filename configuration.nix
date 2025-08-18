@@ -254,6 +254,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    gromit-mpx
+    starship
     xsel
     fastfetch
     lazygit

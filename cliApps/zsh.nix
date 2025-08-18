@@ -35,27 +35,52 @@
       fi
 
       # Set LS_COLORS theme
-      export VIVID_THEME='catppuccin-mocha'
+      export VIVID_THEME="catppuccin-mocha"
       export LS_COLORS="$(vivid generate "$VIVID_THEME")"
 
-      # --- PROMPT SETUP ---
-      # Load the version control information system
-      autoload -Uz vcs_info
-      precmd() { vcs_info }
-
-      # Define the format for the git branch string (using Catppuccin Mauve)
-      # NOTE: The '' icon requires a Nerd Font.
-      zstyle ':vcs_info:git:*' formats '(%F{#cba6f7} %b%f)'
-      
-      # Don't show anything when not in a git repo
-      zstyle ':vcs_info:*' no-vcs ""
-
-      # Set the final prompt for Catppuccin Mocha with git info
-      PROMPT="
-%K{#181825}%F{#CDD6F4} $0 %K{#1E1E2E}%F{#CDD6F4} %n %K{#313244}%F{#CDD6F4} %~ %f%k %F{#89B4FA} ''${vcs_info_msg_0_} %f%F{#A6E3A1} ❯ %f"
       # Welcome message
-				echo -e "
-\x1b[48;5;236m\x1b[38;5;189m $(${lib.getExe' pkgs.procps "uptime"} -p | cut -c 4-) \x1b[48;5;238m\x1b[38;5;189m $(uname -r) \033[0m" #catppuccin-mocha theme
+      echo -e "\x1b[48;5;236m\x1b[38;5;189m $(${pkgs.procps}/bin/uptime -p | cut -c 4-) \x1b[48;5;238m\x1b[38;5;189m $(uname -r) \033[0m"
     '';
+  };
+
+  # --- STARSHIP PROMPT CONFIGURATION ---
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    
+    settings = {
+      # FIX: Main format string now just lists the modules
+      format = "$shell$username$directory$git_branch$character";
+      
+      git_branch.symbol = " ";
+
+      character = {
+        success_symbol = "[❯](bold #a6e3a1)";
+        error_symbol = "[❯](bold #f38ba8)";
+      };
+
+      # --- Module Styles (Catppuccin Mocha with Block Style) ---
+      # FIX: Removed the Powerline arrow '' from all module formats
+      shell = {
+        format = "[$indicator]($style)";
+        style = "bg:#181825 fg:#CDD6F4";
+        zsh_indicator = " zsh ";
+        disabled = false;
+      };
+      username = {
+        format = "[ $user ]($style_user)";
+        style_user = "bg:#1E1E2E fg:#CDD6F4";
+        show_always = true;
+      };
+      directory = {
+        format = "[ $path ]($style)";
+        style = "bg:#313244 fg:#CDD6F4";
+        truncation_length = 3;
+      };
+      git_branch = {
+        format = "[$symbol$branch ]($style)";
+        style = "bg:#1E1E2E fg:#cba6f7";
+      };
+    };
   };
 }
