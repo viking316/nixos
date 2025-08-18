@@ -8,6 +8,7 @@
  	./cliApps/fzf.nix
 	./cliApps/helix.nix
 	./guiApps/plasma-manager.nix
+	./cliApps/tmux.nix
 	inputs.plasma-manager.homeManagerModules.plasma-manager
   ];
 

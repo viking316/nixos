@@ -5,6 +5,7 @@
 { config, pkgs, inputs, ... }:
 
 {
+  services.xserver.xkb.options = "caps:escape";
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
@@ -253,6 +254,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    xsel
+    fastfetch
     lazygit
     
     (catppuccin-sddm.override {
