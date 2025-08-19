@@ -30,11 +30,15 @@
   let
 
 	system = "x86_64-linux";
-        homepkgs = nixpkgs.legacyPackages.${system};
+  # homepkgs = nixpkgs.legacyPackages.${system};
+  pkgs = nixpkgs.legacyPackages.${system};
 
   in
 #-----------------------------------
   {
+  #importing all my shells:
+  devShells.${system}.capstone = (import ./shells/capstone.nix {inherit pkgs ;});
+  
 	#this is for the system so we pass the host name which is bigscroll in this case
 	nixosConfigurations.bigscroll = nixpkgs.lib.nixosSystem {
 	
