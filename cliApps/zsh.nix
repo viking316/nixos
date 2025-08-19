@@ -55,12 +55,12 @@
       git_branch.symbol = " ";
 
       character = {
-        success_symbol = "[❯](bold #a6e3a1)";
-        error_symbol = "[❯](bold #f38ba8)";
+        success_symbol = "[ ❯](bold #a6e3a1)";
+        error_symbol = "[ ❯](bold #f38ba8)";
       };
 
       # --- Module Styles (Catppuccin Mocha with Block Style) ---
-      # FIX: Removed the Powerline arrow '' from all module formats
+      # 
       shell = {
         format = "[$indicator]($style)";
         style = "bg:#181825 fg:#CDD6F4";
