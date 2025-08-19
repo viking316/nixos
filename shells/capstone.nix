@@ -7,6 +7,7 @@ let
     sha256 = "05g8z05ydg1bvkc7hhivsz3a9fkf8dj1mfr976hacvpy33yzwsca";
     # To make this a pure evaluation, you would add a sha256 hash here.
   }){system = pkgs.system;};
+
 in
 
 # Use this single, consistent package set to build the shell
@@ -15,6 +16,11 @@ oldpkgs.mkShell {
     (python310.withPackages (p: with p; [
       numpy
       fastapi
+      uvicorn
     ]))
   ];
+  shellHook = ''
+    echo "INSIDE CAPSTONE ENV"
+ 
+  '';
 }
