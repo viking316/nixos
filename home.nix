@@ -69,7 +69,10 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   #};
-
+  #autostart syncthing:
+  home.file." ~/.config/systemd/user/syncthing.service"={
+    source = ./hardcoded/syncthing.service;
+};
   # custom gitblame command for helix editor T_T
   home.file.".local/bin/gblame" = {
     source = ./hardcoded/gblame;
