@@ -271,7 +271,7 @@
       background = "${./hardcoded/second_dragon_blue.png}";
       loginBackground = true;
     })
-    
+    thunderbird
     appimage-run
     #wpsoffice
     onlyoffice-desktopeditors
