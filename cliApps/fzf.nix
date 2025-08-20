@@ -39,18 +39,18 @@
 
     # --- COMMANDS (fd-based) ---
     # FIX: Added your requested exclusions
-    defaultCommand = "fd --type f --hidden --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
+    defaultCommand = "fd --type f --hidden . '/' --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
 
     # For Ctrl+t (insert file path)
     # FIX: Added your requested exclusions
-    fileWidgetCommand = "fd --type f --hidden --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
+    fileWidgetCommand = "fd --type f --hidden . '/' --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
     fileWidgetOptions = [
       "--preview 'bat --color=always --style=plain {}'"
     ];
 
     # For Alt+c (change directory)
     # FIX: Added your requested exclusions
-    changeDirWidgetCommand = "fd --type d --hidden --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
+    changeDirWidgetCommand = "fd --type d --hidden . '/' --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
     changeDirWidgetOptions = [
       "--preview 'tree -C {} | head -100'"
     ];
