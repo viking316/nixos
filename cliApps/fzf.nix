@@ -29,28 +29,28 @@
     # --- LAYOUT ---
     # These options apply to all fzf commands for a consistent, neat look
     defaultOptions = [
-      "--height 60%"
+      "--height 80%"
       "--layout=reverse"
-      "--border=double"
+      "--border=sharp"
       "--margin='2%'" # Padding on all sides
       "--padding='1'"  # Internal padding
-      "--preview-window='border-rounded'"
+      "--preview-window='border-sharp'"
     ];
 
     # --- COMMANDS (fd-based) ---
-    # FIX: Added your requested exclusions
-    defaultCommand = "fd --type f --hidden . '/' --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
+
+    defaultCommand = "fd -F --hidden . '/' --exclude .git --exclude node_modules --exclude ~/.nix-defexpr --exclude ~/.cache --exclude .local/share/Trash --exclude /sys --exclude /dev --exclude /run --exclude /nix/store --exclude /var --exclude /proc";
 
     # For Ctrl+t (insert file path)
-    # FIX: Added your requested exclusions
-    fileWidgetCommand = "fd --type f --hidden . '/' --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
+
+    fileWidgetCommand = "fd -F --hidden . '/' --exclude /var --exclude /sys --exclude /dev --exclude /proc --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
     fileWidgetOptions = [
       "--preview 'bat --color=always --style=plain {}'"
     ];
 
     # For Alt+c (change directory)
-    # FIX: Added your requested exclusions
-    changeDirWidgetCommand = "fd --type d --hidden . '/' --strip-cwd --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
+    
+    changeDirWidgetCommand = "fd --type d --hidden . '/' --exclude .git --exclude node_modules --exclude .nix-defexpr --exclude .cache --exclude .local/share/Trash";
     changeDirWidgetOptions = [
       "--preview 'tree -C {} | head -100'"
     ];

@@ -69,6 +69,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   #};
+  
   #autostart syncthing:
   home.file." ~/.config/systemd/user/syncthing.service"={
     source = ./hardcoded/syncthing.service;

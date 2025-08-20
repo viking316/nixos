@@ -13,6 +13,9 @@
 
   # 2. CONFIGURE GTK (for non-KDE apps)
   gtk = {
+
+    # this will make sure only HM can manage the file and kde dont overwrite 
+    gtk2.force = true;
     enable = true;
     theme = {
       name = "Catppuccin-Mocha-Standard-Mauve-Dark";

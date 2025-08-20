@@ -146,15 +146,15 @@
 
 
  #creating a hotspot
-   services.create_ap = {
-	 enable = true;
-	 settings = {
-	  INTERNET_IFACE = "enp0s20f0u1c2";
-	 	WIFI_IFACE = "wlan0";
-	 	SSID = "BigScroll";
-	 	PASSPHRASE = "scroll316";
-	 };
-   };
+  #  services.create_ap = {
+	 # enable = true;
+	 # settings = {
+	 #  INTERNET_IFACE = "enp0s20f0u1c2";
+	 # 	WIFI_IFACE = "wlan0";
+	 # 	SSID = "BigScroll";
+	 # 	PASSPHRASE = "scroll316";
+	 # };
+  #  };
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -187,6 +187,10 @@
   };
   services.desktopManager.plasma6.enable = true;
 
+   
+
+
+  
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -277,7 +281,7 @@
     bat
     zapzap
     obsidian
-    linux-wifi-hotspot
+    # linux-wifi-hotspot
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     vscode
