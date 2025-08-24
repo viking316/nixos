@@ -201,15 +201,15 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  #hardware.pulseaudio.enable = false;
+  hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+    enable = false;
+    alsa.enable = false;
+    alsa.support32Bit = false;
+    pulse.enable = false;
     # If you want to use JACK applications, uncomment this
-    jack.enable = true;
+    # jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -257,8 +257,14 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    gromit-mpx
+  environment.systemPackages = with pkgs; [ 
+    gimp
+    docker-compose
+    lutris
+    brave
+    localsend
+    qbittorrent
+    
     starship
     xsel
     fastfetch

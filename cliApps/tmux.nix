@@ -14,12 +14,14 @@
       # --- GENERAL ---
       # Default prefix (C-b) is active.
       # Added escape-time 0 for instant responsiveness in Helix.
+      # FIX: Add terminal type and true color support to prevent rendering crashes.
+      set -g default-terminal "tmux-256color"
+      set -ga terminal-overrides ",*256col*:Tc"
       set -g escape-time 0
       set-window-option -g mode-keys vi
       set -g status-position top
       set -g mouse on
       set -g repeat-time 1000
-
       # --- KEYBINDINGS ---
       # Splits (no change)
       unbind %
@@ -72,7 +74,7 @@
       # Status bar (no change)
       set -g status-style 'fg=#cdd6f4,bg=#1e1e2e'
       set -g status-left-length 90
-      set -g status-left '#[fg=#a6e3a1,bg=#1e1e2e] #(git branch --show-current 2>/dev/null)'
+      #set -g status-left '#[fg=#a6e3a1,bg=#1e1e2e] #(git branch --show-current 2>/dev/null)'
       set -g status-right-length 90
       set -g status-right "#[fg=#fab387,bg=#1e1e2e] it's %H:%M | %d-%m-%Y "
       setw -g window-status-current-style 'fg=#f5c2e7,bg=#313244'

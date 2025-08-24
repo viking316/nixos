@@ -1,8 +1,8 @@
-{config, pkgs,lib, ...}:
+{config, pkgs, lib, ...}:
 
 {
   home.packages = with pkgs; [vivid];
-  
+
   programs.zsh = {
     enable = true;
     shellAliases = {
@@ -22,16 +22,18 @@
       saveNoDups = true;
       share = true;
     };
-    
+
     syntaxHighlighting = {
       enable = true;
       highlighters = ["brackets" "root" "cursor"];
     };
 
     initContent = ''
-      # Automatically start tmux if not already inside a tmux session
-      if [[ -z "$TMUX" && "$-" == *i* ]]; then
-        exec tmux -u
+      # Automatically start tmux, but not in VS Code's integrated terminal
+      if [[ -z "$TMUX" && "$-" == *i* && "$TERM_PROGRAM" != "vscode" ]]; then
+        # exec tmux new-session -A -s main
+        # Using a named session is often more reliable
+        tmux new-session -A -s main && exec tmux attach-session -t main || exec tmux -u
       fi
 
       # Set LS_COLORS theme
@@ -47,11 +49,11 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
-    
+
     settings = {
-      # FIX: Main format string now just lists the modules
+      # Main format string now just lists the modules
       format = "$shell$username$directory$git_branch$character";
-      
+
       git_branch.symbol = " ";
 
       character = {
@@ -60,7 +62,6 @@
       };
 
       # --- Module Styles (Catppuccin Mocha with Block Style) ---
-      # 
       shell = {
         format = "[$indicator]($style)";
         style = "bg:#181825 fg:#CDD6F4";
