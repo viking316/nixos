@@ -9,7 +9,7 @@
 		enableFishIntegration = true;
 		enableBashIntegration = true;
 		settings = {
-			font-family = "JetBrains Mono";
+			font-family = "JetBrains Mono Nerd Font";
 			
 			cursor-style = "block";
 			mouse-hide-while-typing = true;

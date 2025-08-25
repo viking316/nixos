@@ -201,10 +201,10 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = true;
+  services.pulseaudio.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = false;
+    enable = true;
     alsa.enable = false;
     alsa.support32Bit = false;
     pulse.enable = false;
@@ -314,7 +314,7 @@
   ];
 
   fonts.packages = with pkgs; [
-	#(pkgs.nerdfonts.override{fonts = ["JetBrainsMono"];})
+	# (nerdfonts.override{fonts = ["JetBrainsMono"];})
 	nerd-fonts.jetbrains-mono
 
 
