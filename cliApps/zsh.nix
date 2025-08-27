@@ -29,11 +29,23 @@
     };
 
     initContent = ''
+      # Ensure proper terminal settings
+      if [[ "$TERM" = "xterm-256color" ]]; then
+        export COLORTERM=truecolor
+      fi
+
       # Automatically start tmux, but not in VS Code's integrated terminal
-      if [[ -z "$TMUX" && "$-" == *i* && "$TERM_PROGRAM" != "vscode" ]]; then
-        # exec tmux new-session -A -s main
-        # Using a named session is often more reliable
-        tmux new-session -A -s main && exec tmux attach-session -t main || exec tmux -u
+      if [[ -z "$TMUX" && "$-" == *i* && "$TERM_PROGRAM" != "vscode" && ! -n "$NO_TMUX" ]]; then
+        # Prevent recursive tmux spawning
+        export NO_TMUX=1
+        # Clear any existing TMUX environment variables
+        unset TMUX TMUX_PANE
+
+        if ! tmux has-session -t main 2>/dev/null; then
+          exec tmux -u new-session -s main
+        else
+          exec tmux -u attach-session -t main
+        fi
       fi
 
       # Set LS_COLORS theme
@@ -69,8 +81,8 @@
         disabled = false;
       };
       username = {
-        format = "[ $user ]($style_user)";
-        style_user = "bg:#1E1E2E fg:#CDD6F4";
+        format = "[](bg:#45475a)[ $env_name$user ](fg:#cdd6f4 bg:#45475a)[](fg:#45475a)";
+        style_user = "fg:#cdd6f4 bg:#45475a";
         show_always = true;
       };
       directory = {

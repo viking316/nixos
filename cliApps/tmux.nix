@@ -14,14 +14,22 @@
       # --- GENERAL ---
       # Default prefix (C-b) is active.
       # Added escape-time 0 for instant responsiveness in Helix.
-      # FIX: Add terminal type and true color support to prevent rendering crashes.
-      set -g default-terminal "tmux-256color"
-      set -ga terminal-overrides ",*256col*:Tc"
+      # Terminal type and true color support configuration
+      set -g default-terminal "xterm-256color"
+      set -ga terminal-overrides ",xterm-256color:RGB"
+      set -ga terminal-overrides ",xterm-256color:Tc"
+      set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+      set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
+      set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
+      # Ensure proper font rendering
+      set -g allow-passthrough on
       set -g escape-time 0
       set-window-option -g mode-keys vi
       set -g status-position top
       set -g mouse on
       set -g repeat-time 1000
+      # Enable focus events for better terminal integration
+      set -g focus-events on
       # --- KEYBINDINGS ---
       # Splits (no change)
       unbind %

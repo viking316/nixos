@@ -201,13 +201,13 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  services.pulseaudio.enable = true;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = false;
-    alsa.support32Bit = false;
-    pulse.enable = false;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     # jack.enable = true;
 
