@@ -20,8 +20,8 @@
 			cursor-style = "block";
 			mouse-hide-while-typing = true;
 			background-opacity = 0.85;
-			window-padding-x = 2;
-			window-padding-y = 2;
+			window-padding-x = 0;
+			window-padding-y = 0;
 			theme = "catppuccin-mocha";
 			background-blur = true;
 		};
