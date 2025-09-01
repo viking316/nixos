@@ -235,7 +235,9 @@
   users.users.big_scroll = {
     isNormalUser = true;
     description = "Chandrashekar M";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    # extraGroups = [ "networkmanager" "wheel" "docker"];
+
+    extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -244,8 +246,8 @@
 
 
 
-  #docker shit
-  virtualisation.docker.enable = true;
+  #docker shit, enable the extragroups above fro docker
+  # virtualisation.docker.enable = true;
 
   #shells
   environment.shells = with pkgs; [zsh fish bash];
@@ -256,7 +258,7 @@
   # Install packages.
   programs.firefox.enable = true;
   
-  programs.steam.enable = true;
+  # programs.steam.enable = true;
   
   programs.java = {
 	enable = true;
@@ -265,6 +267,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [ 
+    wl-clipboard
     gimp
     docker-compose
     lutris
@@ -314,7 +317,6 @@
     resonance
     pkgs.syncthing
     pkgs.thunderbird
-    
     nh
     inputs.zen-browser.packages.${pkgs.system}.default
 
