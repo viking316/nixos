@@ -31,6 +31,13 @@
 	backupFileExtension = "bak";
  };
 
+#allowing a package to be insecurely built cuz there are some security concerns
+
+
+  nixpkgs.config.permittedInsecurePackages = [
+  "qtwebengine-5.15.19"
+  ];
+            
 
  #GC collector config
  nix.gc = {
@@ -265,7 +272,7 @@
     localsend
     qbittorrent
     
-    starship
+     starship
     xsel
     fastfetch
     lazygit
@@ -296,7 +303,7 @@
     rofi-wayland
     lshw
     tmux	
-    floorp-unwrapped
+    
     git
     python310
     obs-studio
@@ -307,7 +314,7 @@
     resonance
     pkgs.syncthing
     pkgs.thunderbird
-    pkgs.localsend
+    
     nh
     inputs.zen-browser.packages.${pkgs.system}.default
 
