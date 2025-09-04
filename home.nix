@@ -71,10 +71,7 @@
   #};
   
   #autostart syncthing:
-  home.file." ~/.config/systemd/user/syncthing.service"={
-    source = ./hardcoded/syncthing.service;
-};
-  # custom gitblame command for helix editor T_T
+    # custom gitblame command for helix editor T_T
   home.file.".local/bin/gblame" = {
     source = ./hardcoded/gblame;
     executable = true;
