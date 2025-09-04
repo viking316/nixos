@@ -244,9 +244,9 @@
   users.users.big_scroll = {
     isNormalUser = true;
     description = "Chandrashekar M";
-    # extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
 
-    extraGroups = [ "networkmanager" "wheel" ];
+    # extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -256,7 +256,7 @@
 
 
   #docker shit, enable the extragroups above fro docker
-  # virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
 
   #shells
   environment.shells = with pkgs; [zsh fish bash];

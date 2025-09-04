@@ -3,6 +3,7 @@
 {
 
   imports = [
+  ./cliApps/lazydocker.nix
 	./cliApps/git.nix
 	./cliApps/zsh.nix
 	./cliApps/ghostty.nix	
