@@ -1,6 +1,7 @@
 { config, pkgs,inputs, ... }:
 
 {
+
   imports = [
 	./cliApps/git.nix
 	./cliApps/zsh.nix
