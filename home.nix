@@ -70,7 +70,6 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   #};
-  
   #autostart syncthing:
     # custom gitblame command for helix editor T_T
   home.file.".local/bin/gblame" = {

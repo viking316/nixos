@@ -5,7 +5,7 @@
 { config, pkgs, inputs, ... }:
 
 {
-  services.xserver.xkb.options = "caps:escape";
+  # services.xserver.xkb.options = "caps:escape";
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
@@ -111,7 +111,6 @@
       fsType = "ntfs-3g"; 
       options = [ "rw" "uid=1000"];
     };
-
   #for bluetooth 
    hardware = {
     	 bluetooth = {
@@ -195,8 +194,18 @@
   services.desktopManager.plasma6.enable = true;
 
    
-
-
+# this is for mod/tap behaviour to get
+  # capslock to work as esc when tapped and lctrl when help
+  services.interception-tools = {
+    enable = true;
+    plugins = [ pkgs.interception-tools-plugins.caps2esc ];
+    udevmonConfig = ''
+      - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+        DEVICE:
+          EVENTS:
+            EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+    '';
+  };
   
   # Configure keymap in X11
   services.xserver.xkb = {
