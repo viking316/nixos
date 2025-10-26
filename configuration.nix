@@ -6,6 +6,7 @@
 
 {
   # services.xserver.xkb.options = "caps:escape";
+  services.tailscale.enable = true;
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
@@ -107,9 +108,9 @@
   boot.supportedFilesystems=["ntfs"];
    
   fileSystems."/mnt/ddrive" =
-    { device = "/dev/nvme0n1p5";
+    { device = "/dev/disk/by-uuid/880611BE0611ADE6";
       fsType = "ntfs-3g"; 
-      options = [ "rw" "uid=1000"];
+      options = ["defaults" "rw" "uid=1000" "gid=100"];
     };
   #for bluetooth 
    hardware = {
@@ -267,7 +268,7 @@
   # Install packages.
   programs.firefox.enable = true;
   
-  # programs.steam.enable = true;
+  programs.steam.enable = true;
   
   programs.java = {
 	enable = true;
@@ -277,6 +278,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [ 
     wl-clipboard
+    rar
+    file-roller
     gimp
     docker-compose
     lutris
@@ -284,10 +287,13 @@
     localsend
     qbittorrent
     
+    kdePackages.kdeconnect-kde    
      starship
     xsel
     fastfetch
     lazygit
+    mangohud
+    tailscale
     
     (catppuccin-sddm.override {
       flavor = "mocha";
@@ -309,10 +315,9 @@
     linux-wifi-hotspot
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    vscode
     discord
     telegram-desktop
-    rofi-wayland
+    
     lshw
     tmux	
     
@@ -352,7 +357,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

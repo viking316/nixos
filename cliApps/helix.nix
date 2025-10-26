@@ -24,10 +24,10 @@ in
     settings.keys = {
       normal = {
         # Navigation
-        i = "move_line_up";
-        k = "move_line_down";
-        l = "move_char_right";
-        j = "move_char_left";
+        # i = "move_line_up";
+        # k = "move_line_down";
+        # l = "move_char_right";
+        # j = "move_char_left";
 
         # Clipboard
         y = ":clipboard-yank";
@@ -44,10 +44,10 @@ in
 
       select = {
         # Navigation
-        i = "extend_visual_line_up";
-        k = "extend_visual_line_down";
-        l = "extend_char_right";
-        j = "extend_char_left";
+        # i = "extend_visual_line_up";
+        # k = "extend_visual_line_down";
+        # l = "extend_char_right";
+        # j = "extend_char_left";
 
         # Clipboard
         y = ":clipboard-yank";

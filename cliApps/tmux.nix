@@ -12,8 +12,7 @@
 
     extraConfig = ''
       # --- GENERAL ---
-      # Default prefix (C-b) is active.
-      # Added escape-time 0 for instant responsiveness in Helix.
+      unbind C-z
       # Terminal type and true color support configuration
       set -g default-terminal "xterm-256color"
       set -ga terminal-overrides ",xterm-256color:RGB"
@@ -58,16 +57,15 @@
       bind v split-window -h -c "#{pane_current_path}"
       bind h split-window -v -c "#{pane_current_path}"
 
-      # Pane switching with prefix key (C-b)
-      bind C-j select-pane -L
-      bind C-i select-pane -U
-      bind C-k select-pane -D
-      bind C-l select-pane -R
+      #window switching
+      bind a previous-window
+      bind d next-window
 
-      # Window navigation
-      unbind d
-      bind C-a previous-window
-      bind C-d next-window
+      # Pane switching with prefix key (C-b)
+      bind C-j select-pane -D
+      bind C-k select-pane -U
+      bind C-h select-pane -L
+      bind C-l select-pane -R
 
       # Session management
       unbind t
@@ -80,9 +78,9 @@
       bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"
 
       # Copy mode movement
-      bind -T copy-mode-vi i send-keys -X cursor-up
-      bind -T copy-mode-vi k send-keys -X cursor-down
-      bind -T copy-mode-vi j send-keys -X cursor-left
+      bind -T copy-mode-vi k send-keys -X cursor-up
+      bind -T copy-mode-vi j send-keys -X cursor-down
+      bind -T copy-mode-vi h send-keys -X cursor-left
       bind -T copy-mode-vi l send-keys -X cursor-right
       
       # Unbind default movement keys

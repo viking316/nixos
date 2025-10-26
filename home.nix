@@ -3,6 +3,7 @@
 {
 
   imports = [
+  ./guiApps/vsc.nix
   ./cliApps/lazydocker.nix
 	./cliApps/git.nix
 	./cliApps/zsh.nix
@@ -11,9 +12,10 @@
 	./cliApps/helix.nix
 	./guiApps/plasma-manager.nix
 	./cliApps/tmux.nix
+	./cliApps/ssh.nix
 	inputs.plasma-manager.homeManagerModules.plasma-manager
   ];
-
+  nixpkgs.config.allowUnfree = true;
 # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "big_scroll";

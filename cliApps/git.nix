@@ -12,21 +12,6 @@
 		};
 
 	};
-	programs.ssh = {
-    enable = true;
-    addKeysToAgent = "yes";
-    compression = true;
-    serverAliveInterval = 60;
-    matchBlocks = {
-      "github.com" = {
-        hostname = "github.com";
-        user = "git";  # This should always be "git"
-
-        identityFile = "~/.ssh/github";
-      };
-    };
-  };
-
-  services.ssh-agent.enable = true;
+  
 
 }
