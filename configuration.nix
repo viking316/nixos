@@ -274,10 +274,30 @@
 	enable = true;
   };
 
+
+  nixpkgs.overlays = [
+    (final: prev:
+      let
+        pkgs-stable = import inputs.nixpkgs-stable {
+          system = pkgs.system;
+          config.allowUnfree = true;
+        };
+      in
+      {
+        stremio = pkgs-stable.stremio;
+      }
+      
+    )
+  ];
+
+  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [ 
     wl-clipboard
+    vicinae
+    p7zip
+    p7zip-rar
     rar
     file-roller
     gimp
@@ -289,7 +309,7 @@
     
     kdePackages.kdeconnect-kde    
      starship
-    xsel
+    # xsel
     fastfetch
     lazygit
     mangohud
@@ -315,7 +335,7 @@
     linux-wifi-hotspot
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    discord
+    # discord
     telegram-desktop
     
     lshw

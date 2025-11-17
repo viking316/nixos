@@ -96,7 +96,7 @@ in
 			};
 
 			auto-pairs = true;
-			clipboard-provider = "x-sel";
+			# clipboard-provider = "x-sel";
 
 		};
 
