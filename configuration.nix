@@ -132,36 +132,87 @@
 
 
   networking.hostName = "big_scroll"; # Define your hostname.
-  # networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
-
-  #installs new backend for wifi which is iwd
-  networking.wireless.iwd.enable = true;
   
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager={
+  # Enable networking with NetworkManager (handles both WiFi and hotspot)
+  # Use wpa_supplicant backend - better AP mode support than iwd
+  networking.networkmanager = {
     enable = true;
-    #changes network manager backend to iwd from wpa_supplicant which is shit
-    wifi.backend = "iwd";
-    #prevent wifi from turning off
+    wifi.backend = "wpa_supplicant";
     wifi.powersave = false;
-    
+    enableStrongSwan = false;
   };
 
 
- #creating a hotspot
-   services.create_ap = {
-  	 enable = true;
-  	 settings = {
-  	  INTERNET_IFACE = "enp0s20f0u2c2";
-  	 	WIFI_IFACE = "wlan0";
-  	 	SSID = "BigScroll";
-  	 	PASSPHRASE = "scroll316";
-	   };
-   };
+
+  # Configure dnsmasq for NetworkManager hotspot mode
+  environment.etc."NetworkManager/dnsmasq-shared.d/hotspot.conf" = {
+    text = ''
+      # Enable DHCP logging for debugging
+      log-dhcp
+      # Make dnsmasq authoritative for this network
+      dhcp-authoritative
+      # Enable rapid commit for faster DHCP
+      dhcp-rapid-commit
+      # Bind to interfaces
+      bind-interfaces
+      # Provide DNS servers to DHCP clients (AdGuard DNS)
+      dhcp-option=6,94.140.14.14,94.140.15.15
+    '';
+  };
+
+  # Ensure dnsmasq has proper permissions for DHCP in hotspot mode
+  systemd.services.NetworkManager = {
+    serviceConfig = {
+      # Grant NetworkManager (and its dnsmasq) the capabilities needed for hotspot DHCP
+      AmbientCapabilities = [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW" "CAP_CHOWN" ];
+      CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW" "CAP_CHOWN" ];
+    };
+  };
+
+  # Enable IP forwarding for hotspot internet sharing
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
+  # Open firewall ports for KDE Connect, LocalSend, and DHCP (for hotspot)
+  networking.firewall = {
+    enable = true;
+    # KDE Connect ports
+    allowedTCPPortRanges = [ 
+      { from = 1714; to = 1764; }  # KDE Connect
+    ];
+    allowedUDPPortRanges = [ 
+      { from = 1714; to = 1764; }  # KDE Connect
+    ];
+    # LocalSend ports
+    allowedTCPPorts = [ 53317 ];  # LocalSend
+    allowedUDPPorts = [ 
+      53317  # LocalSend
+      67     # DHCP server (for hotspot)
+      68     # DHCP client
+    ];
+    # Allow DHCP traffic on wlan0 interface for hotspot
+    extraCommands = ''
+      # DHCP for hotspot
+      iptables -A nixos-fw -i wlan0 -p udp --dport 67 -j nixos-fw-accept
+      iptables -A nixos-fw -i wlan0 -p udp --dport 68 -j nixos-fw-accept
+      
+      # NAT for internet sharing from any internet interface to wlan0 hotspot
+      iptables -t nat -A POSTROUTING -s 10.42.0.0/24 -j MASQUERADE
+      iptables -A FORWARD -i wlan0 -j ACCEPT
+      iptables -A FORWARD -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+    '';
+  };
+
+  # Enable Avahi for mDNS/DNS-SD (required for device discovery)
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;  # Enable mDNS resolution
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+      userServices = true;
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -188,7 +239,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm = {
     enable = true;
-    theme= "catppuccin-mocha-mauve";
+    theme= "catppuccin-mocha";
     #package = pkgs.kdePackages.sddm;
     
   };
@@ -304,6 +355,7 @@
     lutris
     brave
     localsend
+    hostapd
     
     kdePackages.kdeconnect-kde    
      starship
@@ -330,7 +382,6 @@
     bat
     zapzap
     obsidian
-    linux-wifi-hotspot
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     # discord
