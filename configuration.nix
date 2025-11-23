@@ -304,7 +304,6 @@
     lutris
     brave
     localsend
-    qbittorrent
     
     kdePackages.kdeconnect-kde    
      starship
@@ -348,9 +347,10 @@
     qbittorrent
     zed-editor
     resonance
-    pkgs.syncthing
-    pkgs.thunderbird
-    nh
+  # keep single entries for packages used system-wide
+  qbittorrent
+  syncthing
+  nh
     inputs.zen-browser.packages.${pkgs.system}.default
     
 
