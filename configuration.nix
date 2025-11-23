@@ -188,7 +188,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm = {
     enable = true;
-    theme= "catppuccin-mocha";
+    theme= "catppuccin-mocha-mauve";
     #package = pkgs.kdePackages.sddm;
     
   };

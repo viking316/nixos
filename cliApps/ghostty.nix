@@ -22,7 +22,7 @@
 			background-opacity = 0.85;
 			window-padding-x = 0;
 			window-padding-y = 0;
-			theme = "catppuccin-mocha";
+			theme = "Catppuccin Mocha";
 			background-blur = true;
 		};
 
