@@ -2,9 +2,11 @@
   description = "My first flake";
 
   inputs = {
-    
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    # Stable is the primary channel
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+
+    # Unstable for cherry-picked packages only
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     
     zen-browser = {
@@ -13,7 +15,7 @@
     };
 
     home-manager = {
-    	url = "github:nix-community/home-manager";
+    	url = "github:nix-community/home-manager/release-25.05";
     	inputs.nixpkgs.follows = "nixpkgs";
 
     };
@@ -32,14 +34,23 @@
 
   };
 
-  outputs = { nixpkgs, ... } @ inputs:
+  outputs = { nixpkgs-unstable, nixpkgs, ... } @ inputs:
 
 #-----------------------------------
   let
 
 	system = "x86_64-linux";
-  # homepkgs = nixpkgs.legacyPackages.${system};
-  pkgs = nixpkgs.legacyPackages.${system};
+  # Stable is the default package set
+  pkgs = import nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+  };
+
+  # Unstable is available for cherry-picked packages
+  pkgs-unstable = import nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
 
   in
 #-----------------------------------
@@ -50,27 +61,16 @@
 	#this is for the system so we pass the host name which is bigscroll in this case
 	nixosConfigurations.bigscroll = nixpkgs.lib.nixosSystem {
 	
-		specialArgs = { inherit inputs; };
+		specialArgs = {
+		  inherit inputs pkgs pkgs-unstable;
+		};
 		
 		modules = [
-      #./home.nix		  
 			./configuration.nix
 		];
 	
     	};
 
-	#i am commenting out the belopw lines cuz i switched to integrated method where home-manager is triggered by nixos-rebuild switch and the below code is no longer req
-    	#here for home manager we give the user name and not the host name 
-	#as the packages will be installed only for that user
-#	homeConfigurations.big_scroll = inputs.home-manager.lib.homeManagerConfiguration {
-#		#extraSpecialArgs is literally specialArgs but just the HM version.
-#		extraSpecialArgs = { inherit inputs; };
-#		pkgs = homepkgs;
-#		modules = [
-#			./home.nix
-#		];
-#	
-#   	};
   };
 
 }

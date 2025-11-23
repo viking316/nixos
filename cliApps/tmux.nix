@@ -1,10 +1,10 @@
 # In your tmux.nix file
-{pkgs, lib, inputs, conf, ...}:
+{pkgs, pkgs-unstable, lib, inputs, conf, ...}:
 
 {
   programs.tmux = {
     enable = true;
-    plugins = with pkgs.tmuxPlugins; [
+    plugins = with pkgs-unstable.tmuxPlugins; [
       tmux-which-key
       session-wizard
       tmux-toggle-popup

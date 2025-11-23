@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, pkgs-unstable, inputs, ... }:
 
 {
   # services.xserver.xkb.options = "caps:escape";
@@ -22,7 +22,7 @@
  #home-manager importer
  home-manager = {
 
-   	extraSpecialArgs = {inherit inputs;};
+  extraSpecialArgs = { inherit inputs pkgs pkgs-unstable; };
 	users = {
 		big_scroll = {
 			imports =  [./home.nix];
@@ -293,12 +293,11 @@
   
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ 
+  environment.systemPackages =
+  (with pkgs; [
     wl-clipboard
-    
     p7zip
     p7zip-rar
-    rar
     file-roller
     gimp
     docker-compose
@@ -339,8 +338,8 @@
     telegram-desktop
     
     lshw
-    tmux	
-    
+    	
+    ripgrep
     git
     python310
     obs-studio
@@ -355,7 +354,11 @@
     inputs.zen-browser.packages.${pkgs.system}.default
     
 
-  ];
+  ]) ++
+
+  (with pkgs-unstable; [
+    tmux
+  ]);
 
   fonts.packages = with pkgs; [
 	# (nerdfonts.override{fonts = ["JetBrainsMono"];})

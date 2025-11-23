@@ -6,17 +6,19 @@ programs.ssh = {
     enable = true;
 
   
-    enableDefaultConfig = false;
+    # enableDefaultConfig = false;
 
 
     matchBlocks = {
        
       "*" = {
         # These options were moved from the top level.
-        addKeysToAgent = "yes";
         compression = true;
         serverAliveInterval = 60;
         sendEnv = ["TMUX"];
+        extraOptions = {
+          AddKeysToAgent = "yes";
+        };
       
         # Use Oracle Cloud key as the default for everything.
         # Note `identityFiles` (plural) takes a list.
