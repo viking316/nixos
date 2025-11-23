@@ -4,6 +4,7 @@
 
   imports = [
   ./guiApps/vsc.nix
+  ./guiApps/vicinae.nix
   ./cliApps/lazydocker.nix
 	./cliApps/git.nix
 	./cliApps/zsh.nix
@@ -13,7 +14,9 @@
 	./guiApps/plasma-manager.nix
 	./cliApps/tmux.nix
 	./cliApps/ssh.nix
+	
 	inputs.plasma-manager.homeManagerModules.plasma-manager
+	inputs.vicinae.homeManagerModules.default
   ];
   nixpkgs.config.allowUnfree = true;
 # Home Manager needs a bit of information about you and the paths it should

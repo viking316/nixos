@@ -295,7 +295,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [ 
     wl-clipboard
-    vicinae
+    
     p7zip
     p7zip-rar
     rar
@@ -353,6 +353,7 @@
     pkgs.thunderbird
     nh
     inputs.zen-browser.packages.${pkgs.system}.default
+    
 
   ];
 
