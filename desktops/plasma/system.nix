@@ -15,7 +15,7 @@
   # SDDM Display Manager with Catppuccin theme
   services.displayManager.sddm = {
     enable = true;
-    theme = "catppuccin-mocha";
+    theme = "catppuccin-mocha-mauve";
   };
 
   # Enable Plasma 6 Desktop Environment
