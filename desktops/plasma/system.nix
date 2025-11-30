@@ -40,8 +40,6 @@
   # NOTE: KDE Connect firewall ports are configured in the main configuration.nix
   # alongside LocalSend and other shared network settings
 
-  # Allow insecure qtwebengine (required by some KDE apps)
-  nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19"
-  ];
+  # NOTE: qtwebengine insecure package permission is in flake.nix
+  # because pkgs is passed via specialArgs (nixpkgs.config in modules is ignored)
 }

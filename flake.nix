@@ -3,7 +3,7 @@
 
   inputs = {
     # Stable is the primary channel
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Unstable for cherry-picked packages only
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";

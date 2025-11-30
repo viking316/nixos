@@ -35,10 +35,6 @@
 	backupFileExtension = "bak";
  };
 
-#allowing a package to be insecurely built cuz there are some security concerns
-# NOTE: qtwebengine is now in desktops/plasma/system.nix
-            
-
  #GC collector config
  nix.gc = {
    automatic = true;
@@ -138,12 +134,15 @@
     enable = true;
     wifi.backend = "wpa_supplicant";
     wifi.powersave = false;
-    enableStrongSwan = false;
+    plugins = [
+      pkgs.networkmanager-strongswan
+    ];
   };
 
 
 
   # Configure dnsmasq for NetworkManager hotspot mode
+  # 
   environment.etc."NetworkManager/dnsmasq-shared.d/hotspot.conf" = {
     text = ''
       # Enable DHCP logging for debugging
@@ -318,22 +317,6 @@
 	enable = true;
   };
 
-
-  nixpkgs.overlays = [
-    (final: prev:
-      let
-        pkgs-stable = import inputs.nixpkgs-stable {
-          system = pkgs.system;
-          config.allowUnfree = true;
-        };
-      in
-      {
-        stremio = pkgs-stable.stremio;
-      }
-      
-    )
-  ];
-
   
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -379,7 +362,6 @@
     python310
     obs-studio
     vlc
-    stremio
     qbittorrent
     zed-editor
     resonance
@@ -394,6 +376,7 @@
 
   (with pkgs-unstable; [
     tmux
+    # stremio  # Using unstable to avoid deprecated qtwebengine
   ]);
 
   fonts.packages = with pkgs; [
