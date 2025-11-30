@@ -11,6 +11,9 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
+      
+      # Desktop Environment (switch DEs by editing desktops/default.nix)
+      ./desktops
     ]; 
  
   nix.settings = {
@@ -33,11 +36,7 @@
  };
 
 #allowing a package to be insecurely built cuz there are some security concerns
-
-
-  nixpkgs.config.permittedInsecurePackages = [
-  "qtwebengine-5.15.19"
-  ];
+# NOTE: qtwebengine is now in desktops/plasma/system.nix
             
 
  #GC collector config
@@ -181,9 +180,18 @@
     ];
     allowedUDPPortRanges = [ 
       { from = 1714; to = 1764; }  # KDE Connect
+      { from = 47998; to = 48000; } # sunshine
     ];
     # LocalSend ports
-    allowedTCPPorts = [ 53317 ];  # LocalSend
+    allowedTCPPorts = [
+      53317 #LocalSend
+
+      #ports for sunshine
+      47984
+      47989
+      48010
+      ];
+      
     allowedUDPPorts = [ 
       53317  # LocalSend
       67     # DHCP server (for hotspot)
@@ -232,18 +240,7 @@
     LC_TIME = "en_IN";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm = {
-    enable = true;
-    theme= "catppuccin-mocha";
-    #package = pkgs.kdePackages.sddm;
-    
-  };
-  services.desktopManager.plasma6.enable = true;
+  # NOTE: X11, display manager, and DE settings are in desktops/
 
    
 # this is for mod/tap behaviour to get
@@ -259,11 +256,7 @@
     '';
   };
   
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # NOTE: xkb keymap config is in desktops/plasma/system.nix
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -292,7 +285,7 @@
   nixpkgs.config.allowUnfree = true;
 
   
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.big_scroll = {
     isNormalUser = true;
     description = "Chandrashekar M";
@@ -300,7 +293,7 @@
 
     # extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      kdePackages.kate
+      # NOTE: DE-specific user packages (kate) are in desktops/
     #  thunderbird
     ];
   };
@@ -346,9 +339,8 @@
   # $ nix search wget
   environment.systemPackages =
   (with pkgs; [
+    ncdu 
     wl-clipboard
-    p7zip
-    p7zip-rar
     file-roller
     gimp
     docker-compose
@@ -357,21 +349,14 @@
     localsend
     hostapd
     
-    kdePackages.kdeconnect-kde    
-     starship
+    # NOTE: DE-specific packages (kdeconnect, sddm theme, kate) are in desktops/
+    starship
     # xsel
     fastfetch
     lazygit
     mangohud
     tailscale
     
-    (catppuccin-sddm.override {
-      flavor = "mocha";
-      font  = "Noto Sans";
-      fontSize = "9";
-      background = "${./hardcoded/second_dragon_blue.png}";
-      loginBackground = true;
-    })
     thunderbird
     appimage-run
     #wpsoffice
@@ -415,6 +400,7 @@
 	# (nerdfonts.override{fonts = ["JetBrainsMono"];})
 	nerd-fonts.jetbrains-mono
 
+	times-newer-roman
 
   ];
 

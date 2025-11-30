@@ -3,19 +3,25 @@
 {
 
   imports = [
+  # GUI Applications (DE-agnostic)
   ./guiApps/vsc.nix
   ./guiApps/vicinae.nix
+  
+  # CLI Applications
   ./cliApps/lazydocker.nix
 	./cliApps/git.nix
 	./cliApps/zsh.nix
 	./cliApps/ghostty.nix	
  	./cliApps/fzf.nix
 	./cliApps/helix.nix
-	./guiApps/plasma-manager.nix
 	./cliApps/tmux.nix
 	./cliApps/ssh.nix
+
 	
-	inputs.plasma-manager.homeManagerModules.plasma-manager
+	# Desktop Environment (switch DEs by editing desktops/home-default.nix)
+	./desktops/home-default.nix
+	
+	# Vicinae module
 	inputs.vicinae.homeManagerModules.default
   ];
   nixpkgs.config.allowUnfree = true;

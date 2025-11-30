@@ -67,7 +67,9 @@
 		
 		modules = [
 			./configuration.nix
-		];
+    	./guiApps/sunshine.nix
+
+    ];
 	
     	};
 

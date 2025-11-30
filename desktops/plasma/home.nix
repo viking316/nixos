@@ -1,20 +1,24 @@
-# In /etc/nixos/plasma.nix
-{ pkgs, ... }:
+# KDE Plasma 6 - Home Manager configuration
+# This file contains user-level settings for KDE Plasma (themes, panels, etc.)
+{ pkgs, inputs, ... }:
 
 {
-  # 1. INSTALL THEMES
-  # Ensures all Catppuccin components are installed
+  imports = [
+    # Import plasma-manager module
+    inputs.plasma-manager.homeManagerModules.plasma-manager
+  ];
+
+  # Install theme packages
   home.packages = with pkgs; [
-    catppuccin-kde # This was the corrected name
+    catppuccin-kde
     catppuccin-gtk
     catppuccin-cursors
     papirus-icon-theme
   ];
 
-  # 2. CONFIGURE GTK (for non-KDE apps)
+  # Configure GTK (for non-KDE apps)
   gtk = {
-
-    # this will make sure only HM can manage the file and kde dont overwrite 
+    # This will make sure only HM can manage the file and KDE doesn't overwrite
     gtk2.force = true;
     enable = true;
     theme = {
@@ -28,7 +32,7 @@
     };
   };
 
-  # 3. CONFIGURE PLASMA
+  # Configure Plasma via plasma-manager
   programs.plasma = {
     enable = true;
 
@@ -43,17 +47,15 @@
       pointSize = 11;
     };
 
-    
     panels = [{
       location = "bottom";
       height = 36;
       widgets = [
-        # 0: Workspaces Indicator
+        # Workspaces Indicator
         "org.kde.plasma.pager"
-        # 1: Spacer
+        # Spacer
         "org.kde.plasma.panelspacer"
-        
-        
+
         {
           name = "org.kde.plasma.kickoff";
           config = {
@@ -64,7 +66,7 @@
           };
         }
 
-        # 2: Apps (Task Manager)
+        # Apps (Task Manager)
         {
           iconTasks.launchers = [
             "applications:org.kde.dolphin.desktop"
@@ -72,16 +74,16 @@
             "applications:firefox.desktop"
           ];
         }
-        # 3: Spacer
+        # Spacer
         "org.kde.plasma.panelspacer"
-        # 4: System Tray
+        # System Tray
         "org.kde.plasma.systemtray"
-        # 5: Desktop Peek
+        # Desktop Peek
         "org.kde.plasma.showdesktop"
       ];
     }];
-    
-    #Transparency and Blur Effects
+
+    # Transparency and Blur Effects
     configFile = {
       # This enables the "Blur" effect backend in KWin
       "kwinrc"."Plugins"."blurEnabled" = true;
